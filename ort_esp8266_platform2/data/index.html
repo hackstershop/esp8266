@@ -1,0 +1,92 @@
+<!doctype html>
+<html>
+<head>
+<style>
+body {text-align:center;background:DodgerBlue;}
+input[type=button] {font-size:30px;border: 2px solid;border-radius: 25px;}
+#relays {float:left;} 
+ </style>
+ <meta charset='utf-8'>
+ <script src='http://code.jquery.com/jquery-3.2.1.min.js'></script>
+  </head>
+  <body>
+  <div id='main'>
+  <h1>שליטה מרחוק</h1>
+  <div id='relays'>
+  <input type='button' id='1' value='ממסר מספר 1'><hr>
+  <input type='button' id='2' value='ממסר מספר 2'><hr>
+  <input type='button' id ='3' value='ממסר מספר 3'><hr>
+  <input type='button' id='4' value='ממסר מספר 4'><hr>
+
+  <input type='button' id='5' value='ממסר מספר 5'><hr>
+  <input type='button' id='6' value='ממסר מספר 6'><hr>
+  <input type='button' id ='7' value='ממסר מספר 7'><hr>
+  <input type='button' id='8' value='ממסר מספר 8'><hr><br>
+  
+  </div>
+  
+  <h2>טמפרטורה מחיישן אנלוגי</h2>
+  <p id='temperature'></p>
+
+  <h2>מצלמה</h2>
+
+ <!-- <img src='http://192.168.1.104/web/mobile.html'> -->
+ 
+<iframe width='640' height='352' src='http://ort-esp8266.duckdns.org:8080/web/mobile.html'></iframe> 
+  <div/>
+  </body>
+  </html>
+
+  
+ 
+  <script>
+  relay1 = false; relay2 = false; relay3 = false; relay4 = false;
+  
+  $('#1').on('click',function(){
+  	$.post('/1',function(data){
+  		relay1 = !relay1;
+  		relay1 ? $('#1').css('color', 'green') : $('#1').css('color', 'red')
+  		}
+  	)}
+  );
+  
+  $('#2').on('click',function(){
+  	$.post('/2',function(data){
+  		relay2 = !relay2; 
+  		relay2 ? $('#2').css('color', 'green') : $('#2').css('color', 'red')
+  	})
+  });
+  
+  $('#3').on('click',function(){
+  	$.post('/3',function(data){
+  		relay3 = !relay3; 
+  		relay3 ? $('#3').css('color', 'green') : $('#3').css('color', 'red')}
+  	)}
+  );
+  
+  $('#4').on('click',function(){
+  	$.post('/4',function(data){
+  		relay4 = !relay4;
+  		 relay4 ? $('#4').css('color', 'green') : $('#4').css('color', 'red')}
+  	)}
+ );
+ 
+  $.post('/5',function(data){
+  	$('#temperature').html(data + ' celsius')}
+  	);
+  	
+  setInterval(function(){
+   	$.post('/5',function(data){
+   		$('#temperature').html(data + ' celsius')}
+   		)
+   		 }, 60000)
+
+  
+  </script>
+  
+  
+  
+  
+  
+  
+  
